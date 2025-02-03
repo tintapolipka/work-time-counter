@@ -25,7 +25,7 @@ class StopWatch {
     }
 
     start(): void {
-        this.intervalId = window.setInterval(this.incrementHandler, 1000);
+        this.intervalId = window.setInterval(this.incrementHandler.bind(this), 1000);
         this.startTime = new Date();
         this.isActive = true;
     }
