@@ -5,7 +5,7 @@ class StopWatch {
     private intervalId : number|null = null;
     protected incrementSideEffectHandler : ()=>void = ()=>{console.log(this.timePassed)};
 
-    constuctor(incrementSideEffetcHandler : ()=>void){
+    constructor(incrementSideEffetcHandler : ()=>void){
         this.incrementSideEffectHandler = incrementSideEffetcHandler;
     }
 
