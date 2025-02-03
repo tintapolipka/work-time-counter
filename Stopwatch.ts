@@ -1,47 +1,45 @@
 class StopWatch {
-    protected startTime : Date|null = null;
-    protected timePassed : number = 0;
-    protected isActive : boolean = false;
-    private intervalId : number|null = null;
-    protected incrementSideEffectHandler : ()=>void = ()=>{console.log(this.timePassed)};
+    protected startTime: Date | null = null;
+    protected timePassed: number = 0;
+    protected isActive: boolean = false;
+    private intervalId: number | null = null;
+    protected incrementSideEffectHandler: () => void;
 
-    constructor(incrementSideEffetcHandler : ()=>void){
-        this.incrementSideEffectHandler = incrementSideEffetcHandler;
+    constructor(incrementSideEffectHandler: () => void) {
+        this.incrementSideEffectHandler = incrementSideEffectHandler;
     }
 
-    incrementHandler(){
+    private incrementHandler = (): void => {
         this.timePassed++;
         this.incrementSideEffectHandler();
+    };
+
+    stop(): void {
+        if (typeof this.intervalId === 'number') {
+            clearInterval(this.intervalId);
+        } else {
+            console.error("Error! No intervalId!");
+        }
+        this.intervalId = null;
+        this.isActive = false;
     }
 
-    stop(){ 
-            if (typeof this.intervalId === 'number')
-            {clearInterval(this.intervalId)} 
-            else {console.error("Error! No intervalId!")}
-            this.intervalId = null;
-            this.isActive = false;
-    }
-
-    start(){
-        this.intervalId = setInterval(this.incrementHandler,1000);
+    start(): void {
+        this.intervalId = window.setInterval(this.incrementHandler, 1000);
         this.startTime = new Date();
         this.isActive = true;
     }
 
-    reset(){
+    reset(): void {
         this.stop();
-        if(this.isActive){
+        if (this.isActive) {
             this.startTime = null;
             this.isActive = false;
-            this.timePassed = 0;           
-        } else {return};
+            this.timePassed = 0;
+        }
     }
 
-    startOrStop(){
-        if(this.isActive){
-            this.stop()
-        } else {
-            this.start()};
+    startOrStop(): void {
+        this.isActive ? this.stop() : this.start();
     }
-
 }
