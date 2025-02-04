@@ -3,15 +3,15 @@ class StopWatch {
     protected timePassed: number = 0;
     protected isActive: boolean = false;
     private intervalId: number | null = null;
-    protected incrementSideEffectHandler: () => void;
+    protected incrementSideEffectHandler: (num:number) => void;
 
-    constructor(incrementSideEffectHandler: () => void) {
+    constructor(incrementSideEffectHandler: (num:number) => void) {
         this.incrementSideEffectHandler = incrementSideEffectHandler;
     }
 
     private incrementHandler = (): void => {
+        this.incrementSideEffectHandler(this.timePassed);
         this.timePassed++;
-        this.incrementSideEffectHandler();
     };
 
     stop(): void {
