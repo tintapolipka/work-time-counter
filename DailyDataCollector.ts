@@ -20,8 +20,16 @@ class DailyDataCollector {
     events : DailyEvents[] = ["WC","WC","Drink","Drink","Drink","Exercize","Exercize","Lunch"];
 
     load(){
-        const storedData = localStorage.getItem(new Date().toLocaleDateString());
-
+        const stored = localStorage.getItem(new Date().toLocaleDateString());
+        if(stored === null){
+            console.log("No data saved today.");
+            return;
+        }
+        const storedData = JSON.parse(stored);
+        if(isDailyDataCollector(storedData)){
+            this.passedWeekWorkTime = storedData.passedWeekWorkTime;
+            this.events = storedData.events;
+        }
     }
     save(){
         localStorage.setItem(this.date,JSON.stringify(this))
