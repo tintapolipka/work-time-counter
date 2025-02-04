@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work time couter</title>
+    <script src="Stopwatch.js"></script>
+    <script src="DailyDataCollector.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Time passed</h1>
+    <h2 id="hh-mm"></h2>
+    <div class="clock" onclick="instance.startOrStop()">
+    <div id="root">
+    </div>
+
+
+    </div>
+
+    <style>
+    .clock {
+    box-sizing: border-box;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    border: 3px dashed black;
+    background-color: rgb(170, 170, 255);
+    text-align: center;
+    font-size:larger;
+    padding: 30px;
+    transition-duration: 1s;
+    transition-property: background-color;
+    cursor: pointer;
+    } 
+    .clock:active{
+        border-width: 5px;
+    }
+    .clock:hover{
+        filter: saturate(50);
+    }
+    </style>
+    <script>const instance = new StopWatch(displayIt);</script>
+</body>
+</html>
