@@ -4,7 +4,8 @@ function isDailyDataCollector(obj) {
         typeof obj === "object" &&
         typeof obj.date === "string" &&
         typeof obj.fullWorkTime === "number" &&
-        typeof obj.passedWeekWorkTime === "number" &&
+        typeof obj.passedWorkTime === "number" &&
+        typeof obj.passedPauseTime === "number" &&
         Array.isArray(obj.events) &&
         obj.events.every((event) => notedEvents.includes(event));
 }
@@ -12,8 +13,10 @@ class DailyDataCollector {
     constructor() {
         this.date = new Date().toLocaleDateString();
         this.fullWorkTime = 60 * 60 * 8;
-        this.passedWeekWorkTime = 0;
+        this.passedWorkTime = 0;
+        this.passedPauseTime = 0;
         this.events = ["WC", "WC", "Drink", "Drink", "Drink", "Exercize", "Exercize", "Lunch"];
+        this.load();
     }
     load() {
         const stored = localStorage.getItem(new Date().toLocaleDateString());
@@ -23,7 +26,8 @@ class DailyDataCollector {
         }
         const storedData = JSON.parse(stored);
         if (isDailyDataCollector(storedData)) {
-            this.passedWeekWorkTime = storedData.passedWeekWorkTime;
+            this.passedWorkTime = storedData.passedWorkTime;
+            this.passedPauseTime = storedData.passedPauseTime;
             this.events = storedData.events;
         }
     }

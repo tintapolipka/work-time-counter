@@ -1,6 +1,5 @@
-"use strict";
 class StopWatch {
-    constructor(incrementSideEffectHandler) {
+    constructor(incrementSideEffectHandler, timePassed) {
         this.startTime = null;
         this.timePassed = 0;
         this.isActive = false;
@@ -10,6 +9,7 @@ class StopWatch {
             this.timePassed++;
         };
         this.incrementSideEffectHandler = incrementSideEffectHandler;
+        this.timePassed = timePassed ? timePassed : this.timePassed;
     }
     stop() {
         if (typeof this.intervalId === 'number') {
@@ -28,45 +28,11 @@ class StopWatch {
     }
     reset() {
         this.stop();
-        if (this.isActive) {
             this.startTime = null;
             this.isActive = false;
             this.timePassed = 0;
-        }
     }
     startOrStop() {
         this.isActive ? this.stop() : this.start();
     }
-}
-// Formatting functions
-function formatTime(seconds) {
-    if (seconds < 0)
-        throw new Error("A bemenet nem lehet negatív szám");
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
-    return [
-        hours.toString().padStart(2, '0'),
-        minutes.toString().padStart(2, '0'),
-        secs.toString().padStart(2, '0')
-    ].join(':');
-}
-function displayIt(num) {
-    const node = document.getElementById('root');
-    if (node === null) {
-        return;
-    }
-    ;
-    node.innerHTML = `<p>${num % 60}</p>`;
-    if (node.parentElement === null) {
-        return;
-    }
-    ;
-    node.parentElement.style.backgroundColor = `hsl(${(num % 60) * 6}deg,60%,60%)`;
-    const nodeHHMM = document.getElementById('hh-mm');
-    if (nodeHHMM === null) {
-        return;
-    }
-    ;
-    nodeHHMM.innerHTML = formatTime(num);
 }
