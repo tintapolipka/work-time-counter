@@ -9,6 +9,17 @@ class Displayers {
         this.stopwatch = new StopWatch(this.displayIt.bind(this), this.dataCollector.passedWorkTime);
         this.pausewatch = new StopWatch(this.pauseDisplay.bind(this), this.dataCollector.passedPauseTime);
     }
+    
+    eventButtons(){
+        this.dataCollector.events.forEach(element => {
+          const btn = document.createElement("button");
+          btn.innerText = element;
+          document.getElementById("pause-events")?.append(
+            btn
+          )
+        });
+        }
+    
     formatTime(seconds) {
         if (seconds < 0)
             throw new Error("A bemenet nem lehet negatív szám");

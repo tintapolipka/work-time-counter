@@ -12,7 +12,7 @@
   <body>
     <h1>Time passed</h1>
     <h2 id="hh-mm"></h2>
-    <div class="clock" onclick="instance.stopwatch.startOrStop()">
+    <div class="clock" onclick="workOrPause()">
       <div id="root"></div>
     </div>
     <h2>Break times</h2>
@@ -20,6 +20,7 @@
     <div class="pause" onclick="instance.pausewatch.startOrStop()">
         <div id="pause-bar"></div>
     </div>
+    <div id="pause-events"></div>
 
     <style>
         .pause {
@@ -57,7 +58,13 @@
       }
     </style>
     <script>
+      function workOrPause(){
+        instance.stopwatch.startOrStop();
+        instance.pausewatch.startOrStop();  
+      }
+      
       const instance = new Displayers();
+      instance.stopwatch.startOrStop();
     </script>
   </body>
 </html>

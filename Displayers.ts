@@ -1,5 +1,6 @@
 import { StopWatch } from "./Stopwatch";
 import { DailyDataCollector } from "./DailyDataCollector";
+import { DailyEvents } from "./DailyDataCollector";
 
 class Displayers {
   btnNode = document.getElementById("root");
@@ -18,8 +19,23 @@ class Displayers {
     this.dataCollector.passedPauseTime
   );
 
+  eventButtons(){
+  this.dataCollector.events.forEach(element => {
+    const btn = document.createElement("button");
+    btn.innerText = element;
+    btn.addEventListener("click",this.removeEvent)
+    document.getElementById("pause-events")?.append(
+      btn
+    )
+  });
+  }
+  removeEvent = (eventToRemove:DailyEvents) =>{
+    const indexToRemove = this.dataCollector.events.findIndex(item => item === eventToRemove);
+    this.dataCollector.events.splice(indexToRemove,1);
+  }
+
   formatTime(seconds: number): string {
-    if (seconds < 0) throw new Error("A bemenet nem lehet negatív szám");
+    if (seconds < 0) console.error("A bemenet nem lehet negatív szám");
 
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -72,4 +88,12 @@ class Displayers {
       this.dataCollector.save();
     }
   }
+
+  workOrPause = ()=>{
+    this.stopwatch.startOrStop();
+    this.pausewatch.startOrStop();  
+  }
+
+
+
 }

@@ -1,6 +1,6 @@
 const notedEvents = ["WC","Drink","Exercize","Lunch"] as const;
 
-type DailyEvents = typeof notedEvents[number];
+export type DailyEvents = typeof notedEvents[number];
 
 function isDailyDataCollector(obj: any): obj is DailyDataCollector {
     return obj !== null &&
